@@ -1,4 +1,4 @@
-# GhostStudiosWebsiteAnalysis
+# Ghost Studios Website Analysis
 Website Analysis App
 
 
