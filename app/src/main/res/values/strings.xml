@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Website Analysis Tool</string>
+    <string name="enter_url">Enter Website URL</string>
+    <string name="btn_process">Analyze</string>
+    <string name="btn_rankings">Check</string>
+    <string name="enter_search">Enter Search Query</string>
+    <string name="analysis_header">Website Analysis Tool</string>
+    <string name="ranking_header">Top 3 Websites</string>
+    <string name="entered_site_header">Entered Website</string>
+    <string name="top_one_header">First Website</string>
+    <string name="top_two_header">Second Website</string>
+    <string name="top_three_header">Third Website</string>
+    <string name="site_check">Compare Sites</string>
+    <string name="compare_header">Comparing Sites</string>
+    <string name="mobile_friendly_test">Mobile Friendly Test</string>
+    <string name="title_test">Title Test</string>
+    <string name="desc_test">Description Test</string>
+    <string name="h1_test">Header Test</string>
+    <string name="alt_test">Image Alt Test</string>
+    <string name="my_url">Entered Site</string>
+    <string name="top_one">1st Site</string>
+    <string name="top_two">2nd Site</string>
+    <string name="top_three">3rd Site</string>
+    <array name="autosize_text_sizes">
+        <item>10sp</item>
+        <item>12sp</item>
+        <item>20sp</item>
+        <item>40sp</item>
+        <item>100sp</item>
+    </array>
+</resources>

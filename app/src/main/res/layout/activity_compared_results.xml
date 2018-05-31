@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ComparedResults"
+    tools:layout_editor_absoluteY="81dp">
+
+    <TextView
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:text="@string/compare_header"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_constraintBottom_toTopOf="@+id/my_site"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/mobileFriendly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/mobile_friendly_test"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="14sp"
+        android:typeface="normal"
+        app:fontFamily="monospace"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_site" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="@string/title_test"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="14sp"
+        android:typeface="normal"
+        app:fontFamily="monospace"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mobileFriendly" />
+
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="@string/desc_test"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="14sp"
+        android:typeface="normal"
+        app:fontFamily="monospace"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/h1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="@string/h1_test"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="14sp"
+        android:typeface="normal"
+        app:fontFamily="monospace"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/desc" />
+
+    <TextView
+        android:id="@+id/alt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="@string/alt_test"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="14sp"
+        android:typeface="normal"
+        app:fontFamily="monospace"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/h1" />
+
+
+    <TextView
+        android:id="@+id/my_site"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/my_url"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="12sp"
+        android:typeface="normal"
+        app:fontFamily="monospace"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+    <ProgressBar
+        android:id="@+id/msMobileFriendlyLoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/my_site"
+        app:layout_constraintStart_toStartOf="@+id/my_site"
+        app:layout_constraintTop_toBottomOf="@+id/mobileFriendly" />
+
+    <ImageView
+        android:id="@+id/msMobileFriendlyPassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/my_site"
+        app:layout_constraintStart_toStartOf="@+id/my_site"
+        app:layout_constraintTop_toBottomOf="@+id/mobileFriendly"
+        app:srcCompat="@mipmap/pass" />
+
+    <ImageView
+        android:id="@+id/msMobileFriendlyFailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/my_site"
+        app:layout_constraintStart_toStartOf="@+id/my_site"
+        app:layout_constraintTop_toBottomOf="@+id/mobileFriendly"
+        app:srcCompat="@mipmap/fail" />
+
+    <ProgressBar
+        android:id="@+id/msTitleLoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="@+id/msMobileFriendlyFailIcon"
+        app:layout_constraintStart_toStartOf="@+id/msMobileFriendlyFailIcon"
+
+        tools:layout_editor_absoluteY="225dp" />
+
+    <ImageView
+        android:id="@+id/msTitlePassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="@+id/msTitleLoadingPanel"
+        app:layout_constraintStart_toStartOf="@+id/msTitleLoadingPanel"
+        app:srcCompat="@mipmap/pass" />
+
+    <ImageView
+        android:id="@+id/msTitleFailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="@+id/msTitlePassIcon"
+        app:layout_constraintStart_toStartOf="@+id/msTitlePassIcon"
+        app:srcCompat="@mipmap/fail" />
+
+    <ProgressBar
+        android:id="@+id/msDescLoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/desc"
+        app:layout_constraintEnd_toEndOf="@+id/msTitleFailIcon"
+        app:layout_constraintStart_toStartOf="@+id/msTitleFailIcon"  />
+
+    <ImageView
+        android:id="@+id/msDescPassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/desc"
+        app:layout_constraintEnd_toEndOf="@+id/msDescLoadingPanel"
+        app:layout_constraintStart_toStartOf="@+id/msDescLoadingPanel"
+        app:srcCompat="@mipmap/pass" />
+
+    <ImageView
+        android:id="@+id/msDescFailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/desc"
+        app:layout_constraintEnd_toEndOf="@+id/msDescPassIcon"
+        app:layout_constraintStart_toStartOf="@+id/msDescPassIcon"
+        app:srcCompat="@mipmap/fail" />
+
+    <ProgressBar
+        android:id="@+id/msH1LoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/h1"
+        app:layout_constraintEnd_toEndOf="@+id/my_site"
+        app:layout_constraintStart_toStartOf="@+id/my_site" />
+
+    <ImageView
+        android:id="@+id/msH1PassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/h1"
+        app:layout_constraintEnd_toEndOf="@+id/my_site"
+        app:layout_constraintStart_toStartOf="@+id/my_site"
+        app:srcCompat="@mipmap/pass" />
+
+    <ImageView
+        android:id="@+id/msH1FailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/h1"
+        app:layout_constraintEnd_toEndOf="@+id/my_site"
+        app:layout_constraintStart_toStartOf="@+id/my_site"
+        app:srcCompat="@mipmap/fail" />
+
+    <ProgressBar
+        android:id="@+id/msAltLoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/alt"
+        app:layout_constraintEnd_toEndOf="@+id/my_site"
+        app:layout_constraintStart_toStartOf="@+id/my_site" />
+
+    <ImageView
+        android:id="@+id/msAltPassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        app:srcCompat="@mipmap/pass"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/alt"
+        app:layout_constraintEnd_toEndOf="@+id/my_site"
+        app:layout_constraintStart_toStartOf="@+id/my_site" />
+
+    <ImageView
+        android:id="@+id/msAltFailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/alt"
+        app:layout_constraintEnd_toEndOf="@+id/my_site"
+        app:layout_constraintStart_toStartOf="@+id/my_site"
+        app:srcCompat="@mipmap/fail" />
+
+
+    <TextView
+        android:id="@+id/site_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/top_one"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="12sp"
+        android:typeface="normal"
+        app:fontFamily="monospace"
+        app:layout_constraintStart_toEndOf="@+id/my_site"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+    <ProgressBar
+        android:id="@+id/soMobileFriendlyLoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/site_one"
+        app:layout_constraintStart_toStartOf="@+id/site_one"
+        app:layout_constraintTop_toBottomOf="@+id/mobileFriendly" />
+
+    <ImageView
+        android:id="@+id/soMobileFriendlyPassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/site_one"
+        app:layout_constraintStart_toStartOf="@+id/site_one"
+        app:layout_constraintTop_toBottomOf="@+id/mobileFriendly"
+        app:srcCompat="@mipmap/pass" />
+
+    <ImageView
+        android:id="@+id/soMobileFriendlyFailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/site_one"
+        app:layout_constraintStart_toStartOf="@+id/site_one"
+        app:layout_constraintTop_toBottomOf="@+id/mobileFriendly"
+        app:srcCompat="@mipmap/fail" />
+
+    <ProgressBar
+        android:id="@+id/soTitleLoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="@+id/soMobileFriendlyFailIcon"
+        app:layout_constraintStart_toStartOf="@+id/soMobileFriendlyFailIcon" />
+
+    <ImageView
+        android:id="@+id/soTitlePassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="@+id/soTitleLoadingPanel"
+        app:layout_constraintStart_toStartOf="@+id/soTitleLoadingPanel"
+        app:srcCompat="@mipmap/pass" />
+
+    <ImageView
+        android:id="@+id/soTitleFailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="@+id/soTitlePassIcon"
+        app:layout_constraintStart_toStartOf="@+id/soTitlePassIcon"
+        app:srcCompat="@mipmap/fail" />
+
+    <ProgressBar
+        android:id="@+id/soDescLoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/desc"
+        app:layout_constraintEnd_toEndOf="@+id/soTitleFailIcon"
+        app:layout_constraintStart_toStartOf="@+id/soTitleFailIcon"  />
+
+    <ImageView
+        android:id="@+id/soDescPassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/desc"
+        app:layout_constraintEnd_toEndOf="@+id/soDescLoadingPanel"
+        app:layout_constraintStart_toStartOf="@+id/soDescLoadingPanel"
+        app:srcCompat="@mipmap/pass" />
+
+    <ImageView
+        android:id="@+id/soDescFailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/desc"
+        app:layout_constraintEnd_toEndOf="@+id/soDescPassIcon"
+        app:layout_constraintStart_toStartOf="@+id/soDescPassIcon"
+        app:srcCompat="@mipmap/fail" />
+
+    <ProgressBar
+        android:id="@+id/soH1LoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/h1"
+        app:layout_constraintEnd_toEndOf="@+id/site_one"
+        app:layout_constraintStart_toStartOf="@+id/site_one" />
+
+    <ImageView
+        android:id="@+id/soH1PassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/h1"
+        app:layout_constraintEnd_toEndOf="@+id/site_one"
+        app:layout_constraintStart_toStartOf="@+id/site_one"
+        app:srcCompat="@mipmap/pass" />
+
+    <ImageView
+        android:id="@+id/soH1FailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/h1"
+        app:layout_constraintEnd_toEndOf="@+id/site_one"
+        app:layout_constraintStart_toStartOf="@+id/site_one"
+        app:srcCompat="@mipmap/fail" />
+
+    <ProgressBar
+        android:id="@+id/soAltLoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/alt"
+        app:layout_constraintEnd_toEndOf="@+id/site_one"
+        app:layout_constraintStart_toStartOf="@+id/site_one" />
+
+    <ImageView
+        android:id="@+id/soAltPassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        app:srcCompat="@mipmap/pass"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/alt"
+        app:layout_constraintEnd_toEndOf="@+id/site_one"
+        app:layout_constraintStart_toStartOf="@+id/site_one" />
+
+    <ImageView
+        android:id="@+id/soAltFailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/alt"
+        app:layout_constraintEnd_toEndOf="@+id/site_one"
+        app:layout_constraintStart_toStartOf="@+id/site_one"
+        app:srcCompat="@mipmap/fail" />
+
+
+    <TextView
+        android:id="@+id/site_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/top_two"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="12sp"
+        android:typeface="normal"
+        app:fontFamily="monospace"
+        app:layout_constraintStart_toEndOf="@+id/site_one"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+    <ProgressBar
+        android:id="@+id/stMobileFriendlyLoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/site_two"
+        app:layout_constraintStart_toStartOf="@+id/site_two"
+        app:layout_constraintTop_toBottomOf="@+id/mobileFriendly" />
+
+    <ImageView
+        android:id="@+id/stMobileFriendlyPassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/site_two"
+        app:layout_constraintStart_toStartOf="@+id/site_two"
+        app:layout_constraintTop_toBottomOf="@+id/mobileFriendly"
+        app:srcCompat="@mipmap/pass" />
+
+    <ImageView
+        android:id="@+id/stMobileFriendlyFailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/site_two"
+        app:layout_constraintStart_toStartOf="@+id/site_two"
+        app:layout_constraintTop_toBottomOf="@+id/mobileFriendly"
+        app:srcCompat="@mipmap/fail" />
+
+    <ProgressBar
+        android:id="@+id/stTitleLoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="@+id/stMobileFriendlyFailIcon"
+        app:layout_constraintStart_toStartOf="@+id/stMobileFriendlyFailIcon" />
+
+    <ImageView
+        android:id="@+id/stTitlePassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="@+id/stTitleLoadingPanel"
+        app:layout_constraintStart_toStartOf="@+id/stTitleLoadingPanel"
+        app:srcCompat="@mipmap/pass" />
+
+    <ImageView
+        android:id="@+id/stTitleFailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="@+id/stTitlePassIcon"
+        app:layout_constraintStart_toStartOf="@+id/stTitlePassIcon"
+        app:srcCompat="@mipmap/fail" />
+
+    <ProgressBar
+        android:id="@+id/stDescLoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/desc"
+        app:layout_constraintEnd_toEndOf="@+id/stTitleFailIcon"
+        app:layout_constraintStart_toStartOf="@+id/stTitleFailIcon"  />
+
+    <ImageView
+        android:id="@+id/stDescPassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/desc"
+        app:layout_constraintEnd_toEndOf="@+id/stDescLoadingPanel"
+        app:layout_constraintStart_toStartOf="@+id/stDescLoadingPanel"
+        app:srcCompat="@mipmap/pass" />
+
+    <ImageView
+        android:id="@+id/stDescFailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/desc"
+        app:layout_constraintEnd_toEndOf="@+id/stDescPassIcon"
+        app:layout_constraintStart_toStartOf="@+id/stDescPassIcon"
+        app:srcCompat="@mipmap/fail" />
+
+    <ProgressBar
+        android:id="@+id/stH1LoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/h1"
+        app:layout_constraintEnd_toEndOf="@+id/site_two"
+        app:layout_constraintStart_toStartOf="@+id/site_two" />
+
+    <ImageView
+        android:id="@+id/stH1PassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/h1"
+        app:layout_constraintEnd_toEndOf="@+id/site_two"
+        app:layout_constraintStart_toStartOf="@+id/site_two"
+        app:srcCompat="@mipmap/pass" />
+
+    <ImageView
+        android:id="@+id/stH1FailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/h1"
+        app:layout_constraintEnd_toEndOf="@+id/site_two"
+        app:layout_constraintStart_toStartOf="@+id/site_two"
+        app:srcCompat="@mipmap/fail" />
+
+    <ProgressBar
+        android:id="@+id/stAltLoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/alt"
+        app:layout_constraintEnd_toEndOf="@+id/site_two"
+        app:layout_constraintStart_toStartOf="@+id/site_two" />
+
+    <ImageView
+        android:id="@+id/stAltPassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        app:srcCompat="@mipmap/pass"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/alt"
+        app:layout_constraintEnd_toEndOf="@+id/site_two"
+        app:layout_constraintStart_toStartOf="@+id/site_two" />
+
+    <ImageView
+        android:id="@+id/stAltFailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/alt"
+        app:layout_constraintEnd_toEndOf="@+id/site_two"
+        app:layout_constraintStart_toStartOf="@+id/site_two"
+        app:srcCompat="@mipmap/fail" />
+
+
+    <TextView
+        android:id="@+id/site_three"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/top_three"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="12sp"
+        android:typeface="normal"
+        app:fontFamily="monospace"
+        app:layout_constraintStart_toEndOf="@+id/site_two"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+    <ProgressBar
+        android:id="@+id/steMobileFriendlyLoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/site_three"
+        app:layout_constraintStart_toStartOf="@+id/site_three"
+        app:layout_constraintTop_toBottomOf="@+id/mobileFriendly" />
+
+    <ImageView
+        android:id="@+id/steMobileFriendlyPassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/site_three"
+        app:layout_constraintStart_toStartOf="@+id/site_three"
+        app:layout_constraintTop_toBottomOf="@+id/mobileFriendly"
+        app:srcCompat="@mipmap/pass" />
+
+    <ImageView
+        android:id="@+id/steMobileFriendlyFailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/site_three"
+        app:layout_constraintStart_toStartOf="@+id/site_three"
+        app:layout_constraintTop_toBottomOf="@+id/mobileFriendly"
+        app:srcCompat="@mipmap/fail" />
+
+    <ProgressBar
+        android:id="@+id/steTitleLoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="@+id/steMobileFriendlyFailIcon"
+        app:layout_constraintStart_toStartOf="@+id/steMobileFriendlyFailIcon"
+
+        tools:layout_editor_absoluteY="225dp" />
+
+    <ImageView
+        android:id="@+id/steTitlePassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="@+id/steTitleLoadingPanel"
+        app:layout_constraintStart_toStartOf="@+id/steTitleLoadingPanel"
+        app:srcCompat="@mipmap/pass" />
+
+    <ImageView
+        android:id="@+id/steTitleFailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="@+id/steTitlePassIcon"
+        app:layout_constraintStart_toStartOf="@+id/steTitlePassIcon"
+        app:srcCompat="@mipmap/fail" />
+
+    <ProgressBar
+        android:id="@+id/steDescLoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/desc"
+        app:layout_constraintEnd_toEndOf="@+id/steTitleFailIcon"
+        app:layout_constraintStart_toStartOf="@+id/steTitleFailIcon"  />
+
+    <ImageView
+        android:id="@+id/steDescPassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/desc"
+        app:layout_constraintEnd_toEndOf="@+id/steDescLoadingPanel"
+        app:layout_constraintStart_toStartOf="@+id/steDescLoadingPanel"
+        app:srcCompat="@mipmap/pass" />
+
+    <ImageView
+        android:id="@+id/steDescFailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/desc"
+        app:layout_constraintEnd_toEndOf="@+id/steDescPassIcon"
+        app:layout_constraintStart_toStartOf="@+id/steDescPassIcon"
+        app:srcCompat="@mipmap/fail" />
+
+    <ProgressBar
+        android:id="@+id/steH1LoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/h1"
+        app:layout_constraintEnd_toEndOf="@+id/site_three"
+        app:layout_constraintStart_toStartOf="@+id/site_three" />
+
+    <ImageView
+        android:id="@+id/steH1PassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/h1"
+        app:layout_constraintEnd_toEndOf="@+id/site_three"
+        app:layout_constraintStart_toStartOf="@+id/site_three"
+        app:srcCompat="@mipmap/pass" />
+
+    <ImageView
+        android:id="@+id/steH1FailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/h1"
+        app:layout_constraintEnd_toEndOf="@+id/site_three"
+        app:layout_constraintStart_toStartOf="@+id/site_three"
+        app:srcCompat="@mipmap/fail" />
+
+    <ProgressBar
+        android:id="@+id/steAltLoadingPanel"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/alt"
+        app:layout_constraintEnd_toEndOf="@+id/site_three"
+        app:layout_constraintStart_toStartOf="@+id/site_three" />
+
+    <ImageView
+        android:id="@+id/steAltPassIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        app:srcCompat="@mipmap/pass"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/alt"
+        app:layout_constraintEnd_toEndOf="@+id/site_three"
+        app:layout_constraintStart_toStartOf="@+id/site_three" />
+
+    <ImageView
+        android:id="@+id/steAltFailIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/alt"
+        app:layout_constraintEnd_toEndOf="@+id/site_three"
+        app:layout_constraintStart_toStartOf="@+id/site_three"
+        app:srcCompat="@mipmap/fail" />
+
+</android.support.constraint.ConstraintLayout>
