@@ -11,13 +11,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -34,9 +32,19 @@ public class Results extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
+
         //Get the Intent that started this activity and extract the string
-        Intent intent = getIntent();
-        String url = intent.getStringExtra("url");
+
+        Website wsTest = getIntent().getParcelableExtra("testWebite");
+
+        Log.d("myTag", "Testing URL: " + wsTest.getUrl());
+        Log.d("myTag", "Mobile Test Results: " + wsTest.getMobileFriendlyCheck() + " & " + wsTest.getMobileFriendlyMessage());
+        Log.d("myTag", "Website Title Eval Results: " + wsTest.getTitle() + " & " + wsTest.getTitleCheck() + " & " + wsTest.getTitleMessage());
+        Log.d("myTag", "Website Desc Eval Results: " + wsTest.getDescription() + " & " + wsTest.getDescriptionCheck() + " & " + wsTest.getDescriptionMessage());
+        Log.d("myTag", "Website H1 Eval Results: " + wsTest.getH1() + " & " + wsTest.getH1Check() + " & " + wsTest.getH1Message());
+        Log.d("myTag", "Website Image Alt Eval Results: " + wsTest.getImgCount() + " & " + wsTest.getImgAltCount() + " & " + wsTest.getImgMissingAltCount() + " & " + wsTest.getImgCheck() + " & " + wsTest.getImgMessage());
+        String url = wsTest.getUrl();
+
 
         TextView msg = findViewById(R.id.mobileFriendly);
         ImageView passIcon = findViewById(R.id.mobileFriendlyPassIcon);

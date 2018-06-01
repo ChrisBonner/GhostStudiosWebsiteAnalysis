@@ -20,6 +20,39 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Called when the user taps the Send button
      */
+//    public void checkURL(View view) {
+//
+//        Website wsTest = new Website("http://weomedia.com");
+//
+//
+//
+//        wsTest.mobileFriendlyTest();
+//        int attempt = 0;
+//        while ( ! wsTest.getMobileFriendlyFinish()) {
+//            attempt++;
+//            Log.d("myTag", "Attempt # " + attempt);
+//            try {
+//                Thread.sleep(10000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//
+//        wsTest.checkWebsite();
+//        int attempt2 = 0;
+//        while ( ! wsTest.getWebsiteEvalFinish()) {
+//            attempt++;
+//            Log.d("myTag", "Attempt # " + attempt2);
+//            try {
+//                Thread.sleep(10000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//
+//    }
 
     public void checkURL(View view) {
 
@@ -61,8 +94,35 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("url", url);
             startActivity(intent);
         } else {
+
+        Website wsTest = new Website(url);
+        wsTest.mobileFriendlyTest();
+        int attempt = 0;
+        while ( ! wsTest.getMobileFriendlyFinish()) {
+            attempt++;
+            Log.d("myTag", "Attempt # " + attempt);
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        wsTest.checkWebsite();
+        int attempt2 = 0;
+        while ( ! wsTest.getWebsiteEvalFinish()) {
+            attempt2++;
+            Log.d("myTag", "Attempt # " + attempt2);
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
             Intent intent = new Intent(this, Results.class);
-            intent.putExtra("url", url);
+            intent.putExtra("testWebite", wsTest);
             startActivity(intent);
         }
     }

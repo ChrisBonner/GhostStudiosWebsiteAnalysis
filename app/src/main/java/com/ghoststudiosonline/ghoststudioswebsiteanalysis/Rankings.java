@@ -46,7 +46,7 @@ public class Rankings extends AppCompatActivity {
                     String newQuery = query.replaceAll("\\s+", "+");
                     String searchUri = "https://www.google.com/search?q=" + newQuery + "&num=20";
                     Connection.Response response = Jsoup.connect(searchUri).ignoreContentType(true)
-                            .userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36")
+                            .userAgent("bot/Mosaic GhostStudiosBot")
                             .timeout(12000).followRedirects(true).execute();
 
                     if(response.statusCode() == 200) {
