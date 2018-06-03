@@ -298,7 +298,6 @@ public class Website implements Parcelable {
                                 if (key.equals("mobileFriendliness")) { // Check if desired key
                                     // Fetch the value as a String
                                     String value = jsonReader.nextString();
-                                    Log.d("myTag", value);
                                     if (value == null) {
                                         result = "Error Null Value Try Again.";
                                     } else {
@@ -326,14 +325,13 @@ public class Website implements Parcelable {
 
                     if(!cancelled) {
                         myConnection.disconnect(); // disconnect connection
-                        Log.d("myTag", "disconnected");
                         //set results
                         if (result != null && result.equals("MOBILE_FRIENDLY")) {
                             mobileFriendlyCheck = EMobileFriendlyCheck.PASS;
-                            mobileFriendlyMessage = "Your Website is Mobile Friendly!";
+                            mobileFriendlyMessage = "Mobile Friendly";
                         } else if (result != null && result.equals("NOT_MOBILE_FRIENDLY")) {
                             mobileFriendlyCheck = EMobileFriendlyCheck.FAIL;
-                            mobileFriendlyMessage = "Your Website is NOT Mobile Friendly. :(";
+                            mobileFriendlyMessage = "NOT Mobile Friendly";
                         } else {
                             mobileFriendlyCheck = EMobileFriendlyCheck.ERROR;
                             mobileFriendlyMessage = result;
