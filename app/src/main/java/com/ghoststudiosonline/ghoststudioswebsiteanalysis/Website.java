@@ -1,6 +1,5 @@
 package com.ghoststudiosonline.ghoststudioswebsiteanalysis;
 
-
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.JsonReader;
@@ -18,8 +17,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Random;
 
-
-
 public class Website implements Parcelable {
 
     // Parcelable Creator
@@ -34,8 +31,10 @@ public class Website implements Parcelable {
         }
     };
 
+
+
     //enum for MobileFriendlyTest
-    private enum EMobileFriendlyCheck {
+    public enum EMobileFriendlyCheck {
         INIT,
         PASS,
         FAIL,
@@ -44,6 +43,9 @@ public class Website implements Parcelable {
 
     //Private Variables
     private String url;
+    private boolean cancelled = false;
+    private int siteOrder;
+    private boolean compared = false;
     private String websiteEvalError;
     private String mobileFriendlyMessage;
     private EMobileFriendlyCheck mobileFriendlyCheck = EMobileFriendlyCheck.INIT;
@@ -65,10 +67,36 @@ public class Website implements Parcelable {
     private String imgMessage;
 
 
+
+
     // Uri Getter
     public String getUrl() {
         return url;
     }
+
+    // cancelled getter/setter
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
+    }
+
+    public boolean isCancelled() {
+        return cancelled;
+    }
+
+    //siteOrder getter
+    public int getSiteOrder() {
+        return siteOrder;
+    }
+
+    //compared getter/setter
+    public boolean isCompared() {
+        return compared;
+    }
+
+    public void setCompared(boolean compared) {
+        this.compared = compared;
+    }
+
 
     // website eval error message
     public String getWebsiteEvalError() { return websiteEvalError; }
@@ -142,41 +170,23 @@ public class Website implements Parcelable {
         return imgMessage;
     }
 
+    //empty constructor
+    public Website () {
 
-    // Constructor
-    public Website(String url) {
-        this.url = url;
     }
 
-    // Second Constructor
-//    public Website(String url, String websiteEvalError, String mobileFriendlyMessage, EMobileFriendlyCheck mobileFriendlyCheck, boolean mobileFriendlyFinish, boolean websiteEvalFinish, String title, boolean titleCheck, String titleMessage,
-//                   String description, boolean descriptionCheck, String descriptionMessage, String h1, boolean h1Check, String h1Message,
-//                   int imgCount, int imgAltCount, int imgMissingAltCount, boolean imgCheck, String imgMessage) {
-//        this.url = url;
-//        this.websiteEvalError = websiteEvalError;
-//        this.mobileFriendlyMessage = mobileFriendlyMessage;
-//        this.mobileFriendlyCheck = mobileFriendlyCheck;
-//        this.mobileFriendlyFinish = mobileFriendlyFinish;
-//        this.websiteEvalFinish = websiteEvalFinish;
-//        this.title = title;
-//        this.titleCheck = titleCheck;
-//        this.titleMessage = titleMessage;
-//        this.description = description;
-//        this.descriptionCheck = descriptionCheck;
-//        this.descriptionMessage = descriptionMessage;
-//        this.h1 = h1;
-//        this.h1Check = h1Check;
-//        this.h1Message = h1Message;
-//        this.imgCount = imgCount;
-//        this.imgAltCount = imgAltCount;
-//        this.imgMissingAltCount = imgMissingAltCount;
-//        this.imgCheck = imgCheck;
-//        this.imgMessage = imgMessage;
-//    }
+    // Constructor
+    public Website(String url, int siteOrder) {
+        this.url = url;
+        this.siteOrder = siteOrder;
+    }
 
     // Parcelable Constructor
     public Website(Parcel in) {
         this.url = in.readString();
+        this.cancelled = (in.readInt() != 0);
+        this.siteOrder = in.readInt();
+        this.compared = (in.readInt() != 0);
         this.websiteEvalError = in.readString();
         this.mobileFriendlyMessage = in.readString();
         this.mobileFriendlyCheck = EMobileFriendlyCheck.valueOf(in.readString());
@@ -205,8 +215,14 @@ public class Website implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel desc, int flags) {
-        //uri
+        //url
         desc.writeString(url);
+        // cancelled
+        desc.writeInt(cancelled ? 1 : 0);
+        //site order
+        desc.writeInt(siteOrder);
+        // cancelled
+        desc.writeInt(compared ? 1 : 0);
         //website eval error
         desc.writeString(websiteEvalError);
         //mobileFriendly
@@ -234,9 +250,9 @@ public class Website implements Parcelable {
         desc.writeString(imgMessage);
     }
 
-    public void mobileFriendlyTest() {
+    public void processSite() {
 
-        new Thread(new Runnable() {
+        Thread MobileThread = new Thread(new Runnable() {
 
             @Override
             public void run() {
@@ -245,7 +261,7 @@ public class Website implements Parcelable {
                 try {
                     HttpURLConnection myConnection = null;
                     int attempts = 0;
-                    while (attempts < 10) {
+                    while (attempts < 10 && !cancelled) {
 
                         String myData = "{\n" +
                                 "  \"requestScreenshot\": false,\n" +
@@ -268,9 +284,6 @@ public class Website implements Parcelable {
                         outputStream.write(myData.getBytes("UTF-8"));
                         outputStream.close();
 
-                        // log number of attempts for the given uri and the response message
-                        Log.d("myTag", "Google API Attempt: " + attempts + "@ " + url  + " Message: " + myConnection.getResponseMessage());
-
                         //random wait time for common to many requests at the same time.
                         if(myConnection.getResponseCode() == 200) {
                             InputStream responseBody = myConnection.getInputStream();
@@ -285,6 +298,7 @@ public class Website implements Parcelable {
                                 if (key.equals("mobileFriendliness")) { // Check if desired key
                                     // Fetch the value as a String
                                     String value = jsonReader.nextString();
+                                    Log.d("myTag", value);
                                     if (value == null) {
                                         result = "Error Null Value Try Again.";
                                     } else {
@@ -303,23 +317,27 @@ public class Website implements Parcelable {
                                 int waitTime = rand.nextInt(50000) + 1000;
                                 Thread.sleep(waitTime);
                             } catch (InterruptedException e) {
-                                e.printStackTrace();
+                                Log.d("myTag", "Thread Sleep Error: " + e.getMessage());
+                                cancelled = true;
                             }
                             attempts++;
                         }
                     }
-                    myConnection.disconnect(); // disconnect connection
 
-                    //set results
-                    if (result != null && result.equals("MOBILE_FRIENDLY")) {
-                        mobileFriendlyCheck = EMobileFriendlyCheck.PASS;
-                        mobileFriendlyMessage = "Your Website is Mobile Friendly!";
-                    } else if (result != null && result.equals("NOT_MOBILE_FRIENDLY")) {
-                        mobileFriendlyCheck = EMobileFriendlyCheck.FAIL;
-                        mobileFriendlyMessage = "Your Website is NOT Mobile Friendly. :(";
-                    } else {
-                        mobileFriendlyCheck = EMobileFriendlyCheck.ERROR;
-                        mobileFriendlyMessage = result;
+                    if(!cancelled) {
+                        myConnection.disconnect(); // disconnect connection
+                        Log.d("myTag", "disconnected");
+                        //set results
+                        if (result != null && result.equals("MOBILE_FRIENDLY")) {
+                            mobileFriendlyCheck = EMobileFriendlyCheck.PASS;
+                            mobileFriendlyMessage = "Your Website is Mobile Friendly!";
+                        } else if (result != null && result.equals("NOT_MOBILE_FRIENDLY")) {
+                            mobileFriendlyCheck = EMobileFriendlyCheck.FAIL;
+                            mobileFriendlyMessage = "Your Website is NOT Mobile Friendly. :(";
+                        } else {
+                            mobileFriendlyCheck = EMobileFriendlyCheck.ERROR;
+                            mobileFriendlyMessage = result;
+                        }
                     }
                     mobileFriendlyFinish = true;
 
@@ -329,22 +347,19 @@ public class Website implements Parcelable {
                     Log.d("Error", "Error Message: " + e.getMessage());
                     mobileFriendlyCheck = EMobileFriendlyCheck.ERROR;
                     mobileFriendlyMessage = "Error Try Again.";
+                    cancelled = true;
                 }
             }
-        }).start();
-    }
+        });
 
-    public void checkWebsite() {
-
-        new Thread(new Runnable() {
+        Thread SiteEval = new Thread(new Runnable() {
             @Override
             public void run() {
 
                 try {
                     Connection.Response response;
                     int attempts = 0;
-                    while (attempts <= 10) {
-                        Log.d("myTag", "Website Attempt: " + attempts);
+                    while (attempts <= 10 && !cancelled) {
 
                         response = Jsoup.connect(url).ignoreContentType(true).userAgent("Ghost-Studios-Website-Analysis-App-v0.1").timeout(12000).followRedirects(true).execute();
 
@@ -369,6 +384,7 @@ public class Website implements Parcelable {
                                 Thread.sleep(1000);
                             } catch (InterruptedException e) {
                                 Log.d("myTag", "Thread Sleep Error: " + e.getMessage());
+                                cancelled = true;
                             }
                             attempts++;
                         }
@@ -379,9 +395,38 @@ public class Website implements Parcelable {
                     Log.d("myTag", "Website Eval Error: " + e.getMessage());
                     websiteEvalError = "There was an error: " + e;
                     websiteEvalFinish = true; // finish used for while loop
+                    cancelled = true;
                 }
             }
-        }).start();
+        });
+
+        MobileThread.start();
+
+        try
+        {
+            MobileThread.join();
+        }
+
+        catch(Exception ex)
+        {
+            Log.d("myTag", "Exception has " +
+                    "been caught" + ex);
+        }
+
+
+        SiteEval.start();
+
+        try
+        {
+            SiteEval.join();
+        }
+
+        catch(Exception ex)
+        {
+            Log.d("myTag", "Exception has " +
+                    "been caught" + ex);
+        }
+
     }
 
     private void checkTitle(Document source) {

@@ -29,10 +29,10 @@ public class Rankings extends AppCompatActivity {
         //Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
         String query = intent.getStringExtra("query");
-        String uri = intent.getStringExtra("url");
+        String url = intent.getStringExtra("url");
 
         TextView siteEntered = findViewById(R.id.entered_site_url);
-        siteEntered.setText(uri);
+        siteEntered.setText(url);
         checkRankings(query);
     }
 
@@ -58,16 +58,16 @@ public class Rankings extends AppCompatActivity {
                         ArrayList<String> resultArr = new ArrayList<>();
 
                         for(Element cite : cites) {
-                            if(cite.text().matches("^(http|https|ftp)://.*$")) {
+                            if(cite.text().matches("^(http|https)://.*$")) {
                                 URL url = new URL(cite.text());
                                 String tempUrl = url.getProtocol() +"://" + url.getHost();
-                                if(!checkBlackList(tempUrl)) {
+                                if( checkBlackList(tempUrl) && checkDup(tempUrl, resultArr)) {
                                     resultArr.add(tempUrl);
                                 }
                             } else {
                                 URL url = new URL("http://" + cite.text());
                                 String tempUrl = url.getProtocol() +"://" + url.getHost();
-                                if(!checkBlackList(tempUrl)) {
+                                if( checkBlackList(tempUrl) && checkDup(tempUrl, resultArr)) {
                                     resultArr.add(tempUrl);
                                 }
                             }
@@ -143,34 +143,46 @@ public class Rankings extends AppCompatActivity {
             }
         }).start();
     }
-
-    public void checkSites(String topOneUrl, String topTwoUrl, String topThreeUrl) {
-
-        Intent intent = getIntent();
-        String siteToCheck = intent.getStringExtra("url");
-
-        Intent newIntent = new Intent(this, ComparedResults.class);
-
-        newIntent.putExtra("url",siteToCheck);
-        newIntent.putExtra("topOneUrl", topOneUrl);
-        newIntent.putExtra("topTwoUrl", topTwoUrl);
-        newIntent.putExtra("topThreeUrl", topThreeUrl);
-        startActivity(newIntent);
-    }
-
+    // Check if tempUrl contains a Blacklist item
     public boolean checkBlackList (String url) {
 
         ArrayList<String> blackList = new ArrayList<>();
         ArrayList<Boolean> checkList = new ArrayList<>();
 
-        boolean check = false;
+        boolean check = true;
 
+        // TODO create user edited settings to generate the blacklist
         blackList.add("yelp");
         blackList.add("facebook");
         blackList.add("healthgrades");
 
-        for(String blackListItem : blackList) {
-            if (url.toLowerCase().contains(blackListItem.toLowerCase())) {
+        for(String blackListItem : blackList) { // for each blacklist item
+            if (url.toLowerCase().contains(blackListItem.toLowerCase())) { // check to see if the url contains a blacklist item
+                checkList.add(true); // it does so we add true to the temp check list
+            } else {
+                checkList.add(false); // it doesn't so we add false to the temp check list
+            }
+        }
+
+        for(Boolean bool : checkList) { // check the check list for any true statements
+            if(bool) { // there was a true, so this url tested can't be added
+                check = false;
+                break;
+            }
+        }
+
+        return check;
+    }
+
+    // check is tempUrl is duplicate
+    public boolean checkDup(String url, ArrayList<String> resultArr) {
+
+        ArrayList<Boolean> checkList = new ArrayList<>();
+
+        boolean check = true;
+
+        for(String result : resultArr) {
+            if (url.toLowerCase().equals(result.toLowerCase())) {
                 checkList.add(true);
             } else {
                 checkList.add(false);
@@ -179,11 +191,39 @@ public class Rankings extends AppCompatActivity {
 
         for(Boolean bool : checkList) {
             if(bool) {
-                check = true;
+                check = false;
                 break;
             }
         }
 
         return check;
     }
+
+    //start new intent on to check the results
+    public void checkSites(String topOneUrl, String topTwoUrl, String topThreeUrl) {
+
+        Intent intent = getIntent();
+        String siteToCheckUrl = intent.getStringExtra("url");
+
+        Website siteToCheck = new Website(siteToCheckUrl, 0);
+        siteToCheck.setCompared(true);
+
+        Website topOne = new Website(topOneUrl, 1);
+        topOne.setCompared(true);
+
+        Website topTwo = new Website(topTwoUrl, 2);
+        topTwo.setCompared(true);
+
+        Website topThree = new Website(topThreeUrl, 3);
+        topThree.setCompared(true);
+
+        Intent newIntent = new Intent(this, Results.class);
+
+        newIntent.putExtra("siteToCheck", siteToCheck);
+        newIntent.putExtra("topOne", topOne);
+        newIntent.putExtra("topTwo", topTwo);
+        newIntent.putExtra("topThree", topThree);
+        startActivity(newIntent);
+    }
+
 }
