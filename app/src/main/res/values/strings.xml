@@ -23,4 +23,7 @@
     <string name="top_one">1st Site</string>
     <string name="top_two">2nd Site</string>
     <string name="top_three">3rd Site</string>
+    <string name="openDrawer">Open</string>
+    <string name="closeDrawer">Close</string>
+    <item name="action_settings" type="id">Settings</item>
 </resources>
