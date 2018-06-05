@@ -3,10 +3,12 @@ package com.ghoststudiosonline.ghoststudioswebsiteanalysis;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.TextView;
 import org.jsoup.Connection;
@@ -18,6 +20,8 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Rankings extends AppCompatActivity {
 
@@ -146,17 +150,15 @@ public class Rankings extends AppCompatActivity {
     // Check if tempUrl contains a Blacklist item
     public boolean checkBlackList (String url) {
 
-        ArrayList<String> blackList = new ArrayList<>();
+        ArrayList<String> blackList;
         ArrayList<Boolean> checkList = new ArrayList<>();
 
         boolean check = true;
 
-        // TODO create user edited settings to generate the blacklist
-        blackList.add("yelp");
-        blackList.add("facebook");
-        blackList.add("healthgrades");
+        blackList = getBlacklist();
 
         for(String blackListItem : blackList) { // for each blacklist item
+            Log.d("myTag", "checkBlackList: " + blackListItem);
             if (url.toLowerCase().contains(blackListItem.toLowerCase())) { // check to see if the url contains a blacklist item
                 checkList.add(true); // it does so we add true to the temp check list
             } else {
@@ -172,6 +174,61 @@ public class Rankings extends AppCompatActivity {
         }
 
         return check;
+    }
+
+    public ArrayList<String> getBlacklist() {
+
+        String[] userBlackList;
+        Resources res = getResources();
+        ArrayList<String> blackList = new ArrayList<>();
+        userBlackList = res.getStringArray(R.array.pref_blacklist_list);
+
+        for(String site : userBlackList) {
+            if(isValid(site)) {
+                try {
+                    URL url = new URL(site);
+                    blackList.add(url.getHost().replaceFirst("^(https://www\\.|http://www\\.|http://|https://|www\\.)",""));
+                } catch(IOException e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            AlertDialog alertDialog = new AlertDialog.Builder(Rankings.this).create();
+                            alertDialog.setTitle("Alert");
+                            alertDialog.setMessage("Error processing blacklist. Please check that all urls are valid.");
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(intent);
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            alertDialog.show();
+                        }
+                    });
+                }
+            } else {
+                blackList.add(site);
+            }
+        }
+
+        return blackList;
+    }
+
+    /* Returns true if url is valid */
+    public static boolean isValid(String url) {
+        /* Try creating a valid URL */
+        try {
+            return URLUtil.isValidUrl(url);
+        }
+
+        // If there was an Exception
+        // while creating URL object
+        catch (Exception e) {
+            return false;
+        }
     }
 
     // check is tempUrl is duplicate

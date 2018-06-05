@@ -1,15 +1,21 @@
 <resources>
+
+    <!--Main Activities Resources-->
     <string name="app_name">Website Analysis Tool</string>
     <string name="enter_url">Enter Website URL</string>
     <string name="btn_process">Analyze</string>
     <string name="btn_rankings">Check</string>
     <string name="enter_search">Enter Search Query</string>
+
+    <!--Rankings Activities Resources-->
     <string name="analysis_header">Website Analysis Tool</string>
     <string name="ranking_header">Top 3 Websites</string>
     <string name="entered_site_header">Entered Website</string>
     <string name="top_one_header">First Website</string>
     <string name="top_two_header">Second Website</string>
     <string name="top_three_header">Third Website</string>
+
+    <!--Results Activities Resources-->
     <string name="site_check">Compare Sites</string>
     <string name="compare_header">Comparing Sites</string>
     <string name="mobile_friendly_test">Mobile Friendly Test</string>
@@ -19,11 +25,35 @@
     <string name="desc_test">Description Test</string>
     <string name="h1_test">Header Test</string>
     <string name="alt_test">Image Alt Test</string>
+
+    <!--Compared Results Activities Resources-->
     <string name="my_url">Entered Site</string>
     <string name="top_one">1st Site</string>
     <string name="top_two">2nd Site</string>
     <string name="top_three">3rd Site</string>
-    <string name="openDrawer">Open</string>
-    <string name="closeDrawer">Close</string>
-    <item name="action_settings" type="id">Settings</item>
+
+    <!--Settings Activities Resources-->
+    <string name="action_settings" type="id">Settings</string>
+    <string name="pref_general_header" type="id">General Settings</string>
+    <string name="pref_blacklist_header" type="id">Blacklist Settings</string>
+
+    <!--General Settings Activities Resources-->
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <!--Blacklist Settings Activities Resources-->
+    <string name="pref_blacklist">Site Blacklist</string>
+    <string name="pref_add">Add</string>
+    <string name="pref_remove">Remove</string>
+
+    <string-array name="pref_blacklist_list">
+        <item>https://www.yelp.com/</item>
+        <item>https://www.facebook.com/</item>
+        <item>https://www.healthgrades.com/</item>
+        <item>dentistry</item>
+    </string-array>
+
+
+
+
 </resources>
